@@ -36,8 +36,6 @@ module NoChangePlease
     # get rid of solutions that do not equal our target price
     solutions.reject! { |solution| solution.inject(0) { |sum, menu_item| sum + menu_item.price } != target_price }
 
-    puts solutions.inspect
-
     solutions.empty? ? solutions : solutions.first
   end
 end

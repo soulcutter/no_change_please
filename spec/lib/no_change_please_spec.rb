@@ -6,15 +6,20 @@ describe NoChangePlease do
 
   it "can load a given file" do
     target_price, menu = NoChangePlease.load_problem(fixture_file('simple_menu.txt'))
+
     target_price.should == NoChangePlease::Price.parse("$20.00")
     menu.should == [sammich, pickle]
-    puts menu.sort { |x, y| x.price <=> y.price }.reverse.inspect
   end
 
   context "#solve" do
     it "can find a combination of menu items resulting in exact change" do
       solution = NoChangePlease.solve(*NoChangePlease.load_problem(fixture_file('simple_menu.txt')))
       solution.should == [sammich, sammich, sammich, sammich]
+    end
+
+    it "returns an empty array for unsolvable problems" do
+      solution = NoChangePlease.solve(*NoChangePlease.load_problem(fixture_file('unsolvable_menu.txt')))
+      solution.should == []
     end
   end
 
