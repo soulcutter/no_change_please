@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module NoChangePlease
   describe MenuItem do
-    subject(:item) { NoChangePlease::MenuItem.new('slice of pizza', "$#{price}") }
+    subject(:item) { NoChangePlease::MenuItem.new('slice of pizza', "$%.2f" % price) }
     let(:price) { 2.47 }
     let(:name) { 'slice of pizza' }
 
@@ -15,7 +15,7 @@ module NoChangePlease
     end
 
     context '#parse' do
-      subject(:item) { MenuItem.parse("#{name},$#{price}") }
+      subject(:item) { MenuItem.parse("#{name},$%.2f" % price) }
       specify { item.name.should == name }
       specify { item.price.should == price }
     end
