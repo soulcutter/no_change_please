@@ -30,7 +30,7 @@ module NoChangePlease
     # eliminate menu items more expensive than the target price
     menu.select! { |x| target_price > x.price }
 
-    # subtract menu items from the target price and try to solve the reduced target price recursively
+    # subtract each menu item from the target price and try to solving the resulting target price recursively
     solutions = menu.map { |menu_item| [menu_item] + solve(target_price - menu_item.price, menu) }
 
     # get rid of solutions that do not equal our target price
