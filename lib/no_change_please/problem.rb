@@ -8,7 +8,7 @@ module NoChangePlease
     end
 
     def solution
-      @solution ||= solve(target_price, menu)
+      @solution ||= solve(target_price, menu).sort { |x, y| y.price <=> x.price }
     end
 
     private
