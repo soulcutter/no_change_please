@@ -9,6 +9,12 @@ module NoChangePlease
         specify { price.should < Price.new(amount + 1) }
         specify { price.should == Price.new(amount) }
       end
+
+      context "a Numeric object" do
+        specify { price.should > (amount - 1) }
+        specify { price.should < (amount + 1) }
+        specify { price.should == amount }
+      end
     end
 
     context 'string format validation' do
@@ -40,7 +46,7 @@ module NoChangePlease
       specify { (price + price).should be_a(Price) }
 
       it "results in a new Price with summed amounts" do
-        (price + price).should == Price.parse("$8.50")
+        (price + price).should == Price.new(8.50)
       end
     end
   end
