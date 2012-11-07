@@ -1,4 +1,4 @@
-require 'no_change_please/menu'
+require 'no_change_please/problem'
 require 'no_change_please/menu_item'
 
 module NoChangePlease
@@ -16,11 +16,12 @@ module NoChangePlease
       end
       menu << MenuItem.parse(line)
     end
-    [target, menu]
+
+    Problem.new(target, menu)
   end
 
   def solve(target_price, menu)
-    menu = menu.dup.sort! { |x, y| x.price <=> y.price }.reverse
+    menu = menu.dup.sort! { |x, y| y.price <=> x.price }
 
     return [] if menu.empty?
 
