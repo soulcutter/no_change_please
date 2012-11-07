@@ -1,16 +1,9 @@
 require 'no_change_please/price'
 
 module NoChangePlease
-  class MenuItem
-    attr_accessor :name, :price
-
+  class MenuItem < Struct.new(:name, :price)
     def initialize(name, price)
-      @name = name
-      @price = Price.parse(price)
-    end
-
-    def ==(obj)
-      obj.is_a?(MenuItem) && name == obj.name && price == obj.price
+      super(name, Price.parse(price))
     end
 
     def to_s
