@@ -5,34 +5,33 @@ module NoChangePlease
     attr_reader :amount
 
     def initialize(amount)
-      @amount = amount
+      @amount = (amount * 100).floor
     end
 
     def <=>(obj)
-      obj = coerce(obj)[1]
-      amount <=> obj.amount
+      amount <=> coerce(obj)[0].amount
     end
 
     def +(obj)
-      obj = coerce(obj)[1]
-      Price.new(amount + obj.amount)
+      sum = amount + coerce(obj)[0].amount
+      Price.new(sum / 100.0)
     end
 
     def -(obj)
-      obj = coerce(obj)[1]
-      Price.new(amount - obj.amount)
+      result = amount - coerce(obj)[0].amount
+      Price.new(result / 100.0)
     end
 
     def to_s
-      "$%.2f" % amount
+      "$%d.%02d" % [(amount / 100), (amount % 100)]
     end
 
     def coerce(other)
       case other
         when Price
-          [self, other]
+          [other, self]
         when Numeric
-          [self, Price.new(other)]
+          [Price.new(other), self]
         else
           raise TypeError.new("Cannot coerce #{other.inspect} to a Price")
       end

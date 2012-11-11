@@ -8,17 +8,17 @@ module NoChangePlease
       let(:soda)  { MenuItem.new('soda', '$3.00') }
 
       context "for an unsolvable problem" do
-        let(:target_price) { Price.new(9.99) }
+        let(:target_price) { 9.99 }
         it { should == [] }
       end
 
       context "for a solvable problem" do
-        let(:target_price) { Price.new(10) }
+        let(:target_price) { 10 }
         it { should == [pizza, pizza] }
       end
 
       context "for a problem that can only be solved by a combination" do
-        let(:target_price) { Price.new(8) }
+        let(:target_price) { 8 }
         it { should == [pizza, soda] }
       end
     end
